@@ -11,8 +11,8 @@ with open("cred.json") as cred_file:
 
 def get_app_acess_token():
   params={
-    "client_id":cred['CLIENT_ID'],
-    "client_secret":cred['CLIENT_SECRET'],
+    "client_id":os.environ['CLIENT_ID'],
+    "client_secret":os.environ['CLIENT_SECRET'],
     "grant_type":"client_credentials"
   }
 
@@ -28,8 +28,8 @@ def get_users(login_names):
   }
 
   headers={
-    "Authorization": "Bearer {}".format(cred['ACCESS_TOKEN']),
-    "Client-Id": cred['CLIENT_ID']
+    "Authorization": "Bearer {}".format(os.environ['ACCESS_TOKEN']),
+    "Client-Id": os.environ['CLIENT_ID']
   }
 
   r=requests.get("https://api.twitch.tv/helix/users",params=params, headers=headers)
@@ -42,8 +42,8 @@ def get_streams(users):
   }
 
   headers={
-    "Authorization": "Bearer {}".format(cred['ACCESS_TOKEN']),
-    "Client-Id": cred['CLIENT_ID']
+    "Authorization": "Bearer {}".format(os.environ['ACCESS_TOKEN']),
+    "Client-Id": os.environ['CLIENT_ID']
   }
 
   r=requests.get("https://api.twitch.tv/helix/streams",params=params, headers=headers)
@@ -64,8 +64,8 @@ def get_notifications():
     }
 
     headers={
-      "Authorization": "Bearer {}".format(cred['ACCESS_TOKEN']),
-      "Client-Id": cred['CLIENT_ID']
+      "Authorization": "Bearer {}".format(os.environ['ACCESS_TOKEN']),
+      "Client-Id": os.environ['CLIENT_ID']
     }
 
     rfoto=requests.get(("https://api.twitch.tv/helix/users?login="+streams[stream]['user_login']),params=params, headers=headers)
@@ -77,8 +77,8 @@ def get_notifications():
     }
 
     headers={
-      "Authorization": "Bearer {}".format(cred['ACCESS_TOKEN']),
-      "Client-Id": cred['CLIENT_ID']
+      "Authorization": "Bearer {}".format(os.environ['ACCESS_TOKEN']),
+      "Client-Id": os.environ['CLIENT_ID']
     }
 
     rgame=requests.get("https://api.twitch.tv/helix/games",params=params, headers=headers)
